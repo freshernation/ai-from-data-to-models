@@ -12,7 +12,7 @@
 ## Not yet
 
 convolution (week 8) · embeddings and recurrent layers (week 9) · batch normalisation · learning-rate
-schedules · GPUs · PyTorch Lightning, Keras, skorch · saving with `torch.save` (week 12)
+schedules · GPUs · PyTorch Lightning, Keras, skorch · saving with `torch.save` (week 8)
 
 ---
 

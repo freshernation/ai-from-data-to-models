@@ -35,3 +35,18 @@ def test_orders_and_items():
     assert not o.duplicated(["customer_id", "item_id"]).any(), "Nobody buys the same item twice."
     shares = orders.category_shares()
     assert shares.shape == (2000, 6) and (shares.sum(axis=1).round(9) == 1).all()
+
+
+def test_product_images():
+    from shoplab import images
+    d = images.load()
+    assert d["X_train"].shape == (2000, 16, 16) and d["X_train"].dtype.name == "uint8"
+    assert len(d["y_shifted"]) == 500 and set(d["y_train"]) == {0, 1, 2, 3}
+    assert images.as_float(d["X_test"][:2]).shape == (2, 1, 16, 16)
+
+
+def test_reviews():
+    from shoplab import reviews
+    train, test = reviews.frozen_split()
+    assert (len(train), len(test)) == (3000, 1000)
+    assert test["negated"].sum() == 350

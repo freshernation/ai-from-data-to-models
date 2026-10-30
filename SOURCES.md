@@ -93,3 +93,36 @@ Need something that is not here? `ai/librarian.md`.
 | [Grinsztajn et al. — Why do tree-based models still outperform deep learning on tabular data?](https://arxiv.org/abs/2207.08815) | Thursday's finding, measured on 45 datasets |
 
 **Ignore for now:** PyTorch Lightning, GPUs and `torch.compile`, learning-rate schedules.
+
+## Week 8 — Images: CNNs
+
+| Read | Why |
+|---|---|
+| [d2l — Convolutions for images](https://d2l.ai/chapter_convolutional-neural-networks/conv-layer.html) | What a filter computes, by hand |
+| [Stanford CS231n — Convolutional networks](https://cs231n.github.io/convolutional-networks/) | Channels, pooling and why weights are shared |
+| [d2l — From fully connected layers to convolutions](https://d2l.ai/chapter_convolutional-neural-networks/why-conv.html) | Wednesday's finding, argued from first principles |
+| [d2l — Image augmentation](https://d2l.ai/chapter_computer-vision/image-augmentation.html) | Thursday's fix, and its limits |
+
+**Ignore for now:** YOLO and detection tutorials, OpenCV, "state of the art" model zoos.
+
+## Week 9 — Text: counts to sequences
+
+| Read | Why |
+|---|---|
+| [scikit-learn — Text feature extraction](https://scikit-learn.org/stable/modules/feature_extraction.html#text-feature-extraction) | Bag of words and TF-IDF, as the library builds them |
+| [Jurafsky and Martin — Speech and Language Processing](https://web.stanford.edu/~jurafsky/slp3/) | The standard textbook; chapter 4 on sentiment and negation |
+| [d2l — Word embedding (word2vec)](https://d2l.ai/chapter_natural-language-processing-pretraining/word2vec.html) | Where learned word vectors came from |
+| [Olah — Understanding LSTM networks](https://colah.github.io/posts/2015-08-Understanding-LSTMs/) | The clearest picture of an LSTM's gates |
+
+**Ignore for now:** NLTK and spaCy pipelines, stop-word lists, stemming, pretrained GloVe files.
+
+## Week 10 — Attention and transformers
+
+| Read | Why |
+|---|---|
+| [Alammar — The illustrated transformer](https://jalammar.github.io/illustrated-transformer/) | Every matrix in attention, drawn |
+| [d2l — Self-attention and positional encoding](https://d2l.ai/chapter_attention-mechanisms-and-transformers/self-attention-and-positional-encoding.html) | Why attention needs positions |
+| [Vaswani et al. — Attention is all you need](https://arxiv.org/abs/1706.03762) | The original paper; sections 3.2 and 3.5 are readable now |
+| [Hugging Face — Byte-pair encoding](https://huggingface.co/learn/llm-course/chapter6/5) | Thursday's tokenizer, as real models use it |
+
+**Ignore for now:** fine-tuning BERT (the `fine-tuning` course), "build GPT in an hour" videos, efficient-attention variants.

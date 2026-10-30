@@ -48,9 +48,9 @@ that is "88% accurate" means nothing until you know predicting "nobody leaves" s
 | 5 | [Without labels](week-05/README.md) | Customer segments, and a recommender that beats "most popular" |
 | 6 | [A neural network by hand](week-06/README.md) | An MLP and its backpropagation in numpy, gradient-checked |
 | 7 | [PyTorch, properly](week-07/README.md) | A reusable training loop, and a network against every churn model so far |
-| 8 | **Images: CNNs** | **Project 2** — a product-image classifier that survives a moved product |
-| 9 | Text: counts to sequences | Review sentiment three ways, and where each fails |
-| 10 | Attention and transformers | A small transformer, compared on a frozen test set |
+| 8 | [**Images: CNNs**](week-08/README.md) | **Project 2** — a product-image classifier, stress-tested, with a model card |
+| 9 | [Text: counts to sequences](week-09/README.md) | Review sentiment from word counts to an LSTM, and every mistake read |
+| 10 | [Attention and transformers](week-10/README.md) | A small transformer, and a shuffle test of what each text model learned |
 | 11 | Generative AI | A review-reply drafter: your model, an LLM, and a guardrail |
 | 12 | **Ship it, defend it** | **Project 3** — the shop's AI service in Docker, and a mock interview |
 
@@ -76,7 +76,7 @@ you have written them. Run the day's tests with `pytest week-NN/day-N -v`.
 
 | Path | What it is |
 |---|---|
-| `shoplab/` | The shop: its data loaders, the frozen split, and (week 11) the model client |
+| `shoplab/` | The shop: customers, orders, product photos and reviews, the frozen splits, and (week 11) the model client |
 | `data/` | The shop's data files |
 | `week-01/` … | One folder per week |
 | `ai/` | The AI roles. Read `ai/README.md` first |

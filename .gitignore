@@ -24,3 +24,7 @@ PENDING.md
 # Plots the labs save
 *.png
 !docs/*.png
+
+# Models the labs save
+*.pt
+*.joblib

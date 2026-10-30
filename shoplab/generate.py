@@ -113,6 +113,89 @@ def orders(customer_ids, catalogue, seed=10):
     return pd.DataFrame(rows), dict(zip(customer_ids, segment))
 
 
+PRODUCTS = ["mug", "shirt", "book", "ball"]
+SIZE = 16
+
+
+def draw(kind, rng):
+    """One 10x10 product icon, drawn with a little variety."""
+    icon = np.zeros((10, 10), dtype=float)
+    if kind == "mug":
+        h = rng.integers(6, 9)
+        icon[10 - h:, 1:6] = 1
+        icon[10 - h + 1:10 - h + 4, 6:9] = 1
+        icon[10 - h + 2:10 - h + 3, 6:8] = 0
+    elif kind == "shirt":
+        icon[1:3, 0:10] = 1
+        icon[1:10, 3:7] = 1
+        icon[1:2, 4:6] = 0
+    elif kind == "book":
+        icon[0:10, 2:8] = 1
+        icon[1:9, 3:7] = 0
+        icon[2:8:2, 4:6] = 1
+    else:
+        yy, xx = np.mgrid[0:10, 0:10]
+        r = rng.uniform(3.5, 4.8)
+        icon[(yy - 4.5) ** 2 + (xx - 4.5) ** 2 <= r * r] = 1
+    return icon
+
+
+def product_images(n, seed, max_shift):
+    rng = np.random.default_rng(seed)
+    X = np.zeros((n, SIZE, SIZE), dtype=np.uint8)
+    y = rng.integers(0, len(PRODUCTS), size=n)
+    for i, label in enumerate(y):
+        icon = draw(PRODUCTS[label], rng) * rng.uniform(0.6, 1.0)
+        dy, dx = rng.integers(-max_shift, max_shift + 1, size=2)
+        top, left = 3 + dy, 3 + dx
+        img = np.zeros((SIZE, SIZE))
+        img[top:top + 10, left:left + 10] = icon
+        img = np.clip(img + rng.normal(0, 0.12, img.shape), 0, 1)
+        X[i] = np.round(img * 255).astype(np.uint8)
+    return X, y
+
+
+POS = ["great", "good", "excellent", "lovely", "perfect", "sturdy", "comfortable", "beautiful"]
+NEG = ["bad", "terrible", "awful", "poor", "flimsy", "broken", "cheap", "useless"]
+ITEMS = ["mug", "shirt", "book", "ball", "lamp", "kettle", "jacket", "toy"]
+OPENERS = ["", "i bought this last week .", "arrived on time .", "second order from this shop .",
+           "gift for my sister .", "", ""]
+
+
+def review(rng):
+    item, positive = rng.choice(ITEMS), rng.random() < 0.5
+    negated = rng.random() < 0.35
+    adj = rng.choice(POS if positive != negated else NEG)
+    if rng.random() < 0.5:
+        adj = f"{rng.choice(['really', 'very', 'that'])} {adj}"
+    form = rng.integers(0, 4)
+    if negated:
+        body = [f"the {item} is not {adj}", f"not {adj} at all", f"this {item} is not {adj}",
+                f"honestly not {adj}"][form]
+    else:
+        body = [f"the {item} is {adj}", f"just {adj}", f"this {item} is {adj}",
+                f"honestly {adj}"][form]
+    if rng.random() < 0.3:
+        extra = rng.choice(POS if positive else NEG)
+        body += f" and {extra}" if not negated else ""
+    text = f"{rng.choice(OPENERS)} {body} !".strip().replace("  ", " ")
+    if rng.random() < 0.3:
+        text = text[0].upper() + text[1:]
+    label = int(positive)
+    if rng.random() < 0.02:
+        label = 1 - label
+    return text, label, int(negated)
+
+
+def reviews(n=4000, seed=12):
+    rng = np.random.default_rng(seed)
+    rows = [review(rng) for _ in range(n)]
+    df = pd.DataFrame(rows, columns=["text", "positive", "negated"])
+    df.insert(0, "review_id", [f"R{i:05d}" for i in range(1, n + 1)])
+    df["split"] = np.where(np.arange(n) < 3000, "train", "test")
+    return df
+
+
 def main():
     DATA.mkdir(exist_ok=True)
     clean = customers()
@@ -123,6 +206,12 @@ def main():
     bought, segment = orders(clean["customer_id"].tolist(), catalogue)
     bought.to_csv(DATA / "orders.csv", index=False)
     pd.Series(segment, name="segment").rename_axis("customer_id").to_csv(DATA / "segments_hidden.csv")
+    Xtr, ytr = product_images(2000, 20, max_shift=1)
+    Xte, yte = product_images(500, 21, max_shift=1)
+    Xsh, ysh = product_images(500, 22, max_shift=3)
+    np.savez_compressed(DATA / "products.npz", X_train=Xtr, y_train=ytr, X_test=Xte, y_test=yte,
+                        X_shifted=Xsh, y_shifted=ysh)
+    reviews().to_csv(DATA / "reviews.csv", index=False)
     print("wrote", sorted(p.name for p in DATA.iterdir()))
 
 
