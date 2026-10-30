@@ -40,7 +40,7 @@ def main():
     in_venv = sys.prefix != sys.base_prefix
     check("Virtual environment is active", in_venv, "Run:  source .venv/bin/activate")
     check("pytest is installed", can_import("pytest"), "Run:  pip install -r requirements.txt")
-    for module in ["numpy", "pandas", "matplotlib", "sklearn", "torch", "shoplab"]:
+    for module in ["numpy", "pandas", "matplotlib", "sklearn", "torch", "pydantic", "fastapi", "shoplab"]:
         check(f"{module} is installed", can_import(module), "Run:  pip install -r requirements.txt")
     check("git is installed", shutil.which("git") is not None, "Install git - see SETUP.md.")
     if shutil.which("git"):

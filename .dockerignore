@@ -1,0 +1,11 @@
+# Week 12's Dockerfile builds from the repository root; send Docker only what it copies.
+.venv/
+.git/
+instructor/
+logs/
+ai/
+week-0*/
+week-10/
+week-11/
+**/__pycache__/
+.env

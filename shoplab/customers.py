@@ -3,6 +3,7 @@
     load_raw()        the export as it arrived: duplicates, odd spellings, gaps
     load()            the course's cleaned copy, without the leaking column
     frozen_split()    (train, test) - the one split every week from 3 on uses
+    next_month()      new customers a month later, after a change nobody told the model about
     FEATURES          the numeric columns a model may use
 """
 
@@ -35,6 +36,11 @@ def frozen_split(test_fraction=0.25, seed=2026):
         test_idx.extend(rng.choice(idx, size=round(len(idx) * test_fraction), replace=False))
     is_test = df.index.isin(test_idx)
     return df[~is_test].reset_index(drop=True), df[is_test].reset_index(drop=True)
+
+
+def next_month():
+    """A month later: 1,000 new customers, after a reminder-email campaign (week 12)."""
+    return pd.read_csv(DATA / "customers_next_month.csv")
 
 
 def arrays(columns, df=None):

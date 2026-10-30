@@ -28,3 +28,6 @@ PENDING.md
 # Models the labs save
 *.pt
 *.joblib
+
+# The service bundle week 12 builds
+week-12/milestone/bundle/

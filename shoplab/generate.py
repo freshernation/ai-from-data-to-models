@@ -49,6 +49,18 @@ def customers(n=2000, seed=7):
     return df
 
 
+def next_month(n=1000, seed=30):
+    """New customers a month later. A reminder email now goes to anyone silent for a
+    while, and 70% of them place a small order - so days_since_last_order shrinks. But
+    the email does not change who leaves: churn still follows how long they WERE silent."""
+    df = customers(n=n, seed=seed)
+    rng = np.random.default_rng(seed + 1)
+    opened = (df["days_since_last_order"] > 20) & (rng.random(n) < 0.7)
+    df.loc[opened, "days_since_last_order"] = rng.integers(1, 15, size=int(opened.sum()))
+    df["customer_id"] = [f"N{i:05d}" for i in range(1, n + 1)]
+    return df.drop(columns=["cancel_reason"])
+
+
 def make_raw(clean, seed=8):
     """The same customers, damaged the way real exports are."""
     rng = np.random.default_rng(seed)
@@ -212,6 +224,7 @@ def main():
     np.savez_compressed(DATA / "products.npz", X_train=Xtr, y_train=ytr, X_test=Xte, y_test=yte,
                         X_shifted=Xsh, y_shifted=ysh)
     reviews().to_csv(DATA / "reviews.csv", index=False)
+    next_month().to_csv(DATA / "customers_next_month.csv", index=False)
     print("wrote", sorted(p.name for p in DATA.iterdir()))
 
 

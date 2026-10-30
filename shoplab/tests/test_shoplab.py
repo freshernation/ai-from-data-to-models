@@ -50,3 +50,18 @@ def test_reviews():
     train, test = reviews.frozen_split()
     assert (len(train), len(test)) == (3000, 1000)
     assert test["negated"].sum() == 350
+
+
+def test_fake_llm_is_the_default_and_deterministic():
+    from shoplab import llm
+    model = llm.get_llm()
+    assert isinstance(model, llm.FakeLLM), "Tests must never reach a real, paid model."
+    a = model.complete([{"role": "user", "content": "hello"}])
+    assert a == model.complete([{"role": "user", "content": "hello"}])
+    assert a.input_tokens == llm.rough_tokens("hello") and a.latency_ms > 0
+
+
+def test_next_month():
+    from shoplab import customers
+    nm = customers.next_month()
+    assert len(nm) == 1000 and nm["days_since_last_order"].median() < customers.load()["days_since_last_order"].median()

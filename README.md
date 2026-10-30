@@ -51,8 +51,8 @@ that is "88% accurate" means nothing until you know predicting "nobody leaves" s
 | 8 | [**Images: CNNs**](week-08/README.md) | **Project 2** — a product-image classifier, stress-tested, with a model card |
 | 9 | [Text: counts to sequences](week-09/README.md) | Review sentiment from word counts to an LSTM, and every mistake read |
 | 10 | [Attention and transformers](week-10/README.md) | A small transformer, and a shuffle test of what each text model learned |
-| 11 | Generative AI | A review-reply drafter: your model, an LLM, and a guardrail |
-| 12 | **Ship it, defend it** | **Project 3** — the shop's AI service in Docker, and a mock interview |
+| 11 | [Generative AI](week-11/README.md) | A review-reply drafter: your model decides, an LLM writes, a guardrail stops the attacks |
+| 12 | [**Ship it, defend it**](week-12/README.md) | **Project 3** — the shop's AI service: validated, fingerprinted, containerised, watched for drift; and a mock interview |
 
 Every test runs offline on a laptop CPU. The data is in `data/`. No account or key is
 needed until week 11, and even then the tests use a scripted fake model; a free-tier key

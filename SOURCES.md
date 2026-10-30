@@ -126,3 +126,25 @@ Need something that is not here? `ai/librarian.md`.
 | [Hugging Face — Byte-pair encoding](https://huggingface.co/learn/llm-course/chapter6/5) | Thursday's tokenizer, as real models use it |
 
 **Ignore for now:** fine-tuning BERT (the `fine-tuning` course), "build GPT in an hour" videos, efficient-attention variants.
+
+## Week 11 — Generative AI
+
+| Read | Why |
+|---|---|
+| [Hugging Face — Generation strategies](https://huggingface.co/docs/transformers/generation_strategies) | Greedy, sampling, temperature and top-k, as libraries implement them |
+| [Anthropic — Messages API](https://docs.anthropic.com/en/api/messages) | What a request and its `usage` contain |
+| [Pydantic — Models](https://docs.pydantic.dev/latest/concepts/models/) | Validating what a model sends back |
+| [Simon Willison — Prompt injection](https://simonwillison.net/series/prompt-injection/) | The clearest account of the attack the milestone defends against |
+
+**Ignore for now:** agent frameworks, LangChain, "prompt engineering" cheat sheets, model leaderboards.
+
+## Week 12 — Ship it, defend it
+
+| Read | Why |
+|---|---|
+| [FastAPI — Request body](https://fastapi.tiangolo.com/tutorial/body/) | Typed, validated requests |
+| [FastAPI — FastAPI in containers](https://fastapi.tiangolo.com/deployment/docker/) | A Dockerfile for exactly this kind of service |
+| [Chip Huyen — Data distribution shifts and monitoring](https://huyenchip.com/2022/02/07/data-distribution-shifts-and-monitoring.html) | Why a model that tested well goes wrong in production |
+| [Google SRE book — Monitoring distributed systems](https://sre.google/sre-book/monitoring-distributed-systems/) | Latency percentiles and what to alert on |
+
+**Ignore for now:** Kubernetes, MLflow and model registries, cloud-specific deployment guides.
