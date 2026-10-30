@@ -1,0 +1,19 @@
+# Weeks 1 to 3. Later weeks add to this file as they arrive.
+pytest>=9.0
+
+# The course's own `shoplab` package, installed in place so that
+# `from shoplab import customers` works from any folder.
+-e .
+
+# Week 1 - arrays, tables and plots
+numpy>=1.26
+pandas>=2.2
+matplotlib>=3.8
+
+# Week 2 on - scikit-learn, used to CHECK the models you write by hand
+scikit-learn>=1.5
+
+# Week 6 on. Intel Macs get torch 2.2, the last release built for them; it
+# needs numpy 1.x. Every lab is tested on 2.2.
+torch>=2.2
+numpy<2; sys_platform == "darwin" and platform_machine == "x86_64"
